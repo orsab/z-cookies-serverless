@@ -1,0 +1,50 @@
+service: zorrox-cookies
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: "3"
+
+plugins:
+  - serverless-dotenv-plugin
+  
+# plugins:
+#   - serverless-plugin-chrome
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: btcwin
+
+  layers:
+      - arn:aws:lambda:us-east-1:347599033421:layer:amazon_linux_fonts:1
+      - arn:aws:lambda:us-east-1:764866452798:layer:chrome-aws-lambda:22
+
+  apiGateway:
+        binaryMediaTypes:
+            - '*/*'
+package:
+  exclude:
+    - layer/**
+    - chrome-aws-lambda/**
+    - node_modules/chrome-aws-lambda/**
+
+functions:
+  screenshot:
+    handler: handler.screenshot
+    timeout: 30
+    # memorySize: 2048
+    events:
+      - http:
+          method: GET
+          path: /screenshot
+  cookies:
+    timeout: 900
+    handler: handler.cookies
+    # memorySize: 2048
+    
+
+# aws --profile btcwin --region us-east-1 logs describe-log-groups
+# aws --profile btcwin --region us-east-1 logs describe-log-streams --log-group-name '/aws/lambda/zorrox-cookies-dev-cookies'
+# aws --profile btcwin --region us-east-1 logs get-log-events --log-group-name '/aws/lambda/zorrox-cookies-dev-cookies' --log-stream-name '2022/02/17/[$LATEST]6029c9a25d22492eac20276127dc57a8'

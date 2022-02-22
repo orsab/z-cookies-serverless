@@ -1,0 +1,28 @@
+{
+  "name": "zorrox-cookies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chrome-script.js",
+  "scripts": {
+    "start": "sls offline",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "events": {
+    "restart": "sls offline"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "duck-duck-scrape": "^2.2.1",
+    "user-agents": "^1.0.926"
+  },
+  "devDependencies": {
+    "chrome-aws-lambda": "^10.1.0",
+    "nodemon": "^2.0.15",
+    "puppeteer-core": "^10.2.0",
+    "serverless-dotenv-plugin": "^3.12.2",
+    "serverless-plugin-chrome": "^1.0.0-55.3"
+  }
+}
